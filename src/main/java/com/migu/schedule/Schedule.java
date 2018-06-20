@@ -1,6 +1,7 @@
 package com.migu.schedule;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -126,19 +127,41 @@ public class Schedule {
         {
             taskNum = waitQueue.size();
         }
+        List<Task> taskPlanList = new ArrayList<Task>();
         for (int i = 0; i < taskNum; i++)
         {
             Task task = waitQueue.poll();
-            task.getConsumption();
+            taskPlanList.add(task);
         }
+        
         
         return ReturnCodeKeys.E000;
     }
 
 
     public int queryTaskStatus(List<TaskInfo> tasks) {
-        // TODO 方法未实现
-        return ReturnCodeKeys.E000;
+        for (Task task : waitQueue)
+        {
+            TaskInfo taskinfo = new TaskInfo();
+            taskinfo.setTaskId(task.getTaskId());
+            taskinfo.setNodeId(-1);
+            tasks.add(taskinfo);
+        }
+        for (LinkedList<Task> taskList : RuningTask.values())
+        {
+            for (Task task : taskList)
+            {
+                TaskInfo taskinfo = new TaskInfo();
+                taskinfo.setTaskId(task.getTaskId());
+                taskinfo.setNodeId(-1);
+                tasks.add(taskinfo);
+            }
+        }
+        if (tasks == null || tasks.size() == 0)
+        {
+            return ReturnCodeKeys.E016;
+        }
+        return ReturnCodeKeys.E015;
     }
 
 }
