@@ -140,9 +140,10 @@ public class Schedule {
 
 
     public int queryTaskStatus(List<TaskInfo> tasks) {
+        TaskInfo taskinfo = null;
         for (Task task : waitQueue)
         {
-            TaskInfo taskinfo = new TaskInfo();
+            taskinfo = new TaskInfo();
             taskinfo.setTaskId(task.getTaskId());
             taskinfo.setNodeId(-1);
             tasks.add(taskinfo);
@@ -151,7 +152,7 @@ public class Schedule {
         {
             for (Task task : taskList)
             {
-                TaskInfo taskinfo = new TaskInfo();
+                taskinfo = new TaskInfo();
                 taskinfo.setTaskId(task.getTaskId());
                 taskinfo.setNodeId(-1);
                 tasks.add(taskinfo);
